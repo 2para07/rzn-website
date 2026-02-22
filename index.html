@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RZN - Risen Organization | Member Verification</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-left">
+                    <img src="images/RZN_LOGO.png" alt="RZN - Risen Logo" class="logo-img">
+                </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <span id="hamburger">☰</span>
+                </button>
+                <div class="nav-links" id="navLinks">
+                    <button class="nav-btn active" data-page="home">🏠 Home</button>
+                    <button class="nav-btn" data-page="members">👥 Members</button>
+                    <button class="nav-btn" data-page="login" id="loginNavBtn">🔐 Login</button>
+                    <button class="nav-btn" data-page="register" id="registerNavBtn">📝 Register</button>
+                    <button class="nav-btn" data-page="profile" id="profileNavBtn" style="display: none;">👤 My Profile</button>
+                    <button class="nav-btn" data-page="admin" id="adminNavBtn" style="display: none;">⚙️ Admin Panel</button>
+                    <button class="nav-btn" id="logoutBtn" style="display: none;">🚪 Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home Page -->
+        <div id="homePage" class="page-container home-page" style="display: flex;">
+            <div class="home-content">
+                <div class="welcome-emoji">
+                    <img src="images/RZN_LOGO.png" alt="RZN - Risen Logo" class="welcome-logo">
+                </div>
+                <h1 class="welcome-title">Welcome to</h1>
+                <div class="welcome-subtitle">RZN - Risen</div>
+                <p class="welcome-description">
+                    This is the official member verification website for the RZN – Risen organization. Here you can view our leadership and verify legitimate organization members.
+                </p>
+                <div class="leaders-grid" id="leadersContainer"></div>
+                <button class="view-members-btn" data-page="members">👥 View All Members</button>
+            </div>
+        </div>
+
+        <!-- Members Page -->
+        <div id="membersPage" class="page-container members-page" style="display: none;">
+            <div class="members-content">
+                <h1 class="members-title">Legitimate Members of RZN - Risen</h1>
+                <p class="members-count">Total Members: <span id="memberCount">0</span></p>
+                <p class="members-subtitle">All members listed below have been verified and are official members of the organization</p>
+                <div class="search-box-container">
+                    <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search members by name...">
+                </div>
+                <div class="members-grid" id="membersContainer"></div>
+                <div id="noResults" class="no-results" style="display: none;">
+                    <p>❌ No members found matching your search</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="registerPage" class="page-container login-page" style="display: none;">
+            <div class="login-container">
+                <div class="login-card">
+                    <h1 class="login-title">📝 Create Account</h1>
+                    <p class="login-subtitle">Join RZN - Risen Organization</p>
+                    <div class="social-field">
+                        <label>Username (RZN. will be added automatically):</label>
+                        <input type="text" id="regUsername" class="login-input" placeholder="Enter your username..." autocomplete="off">
+                    </div>
+                    <div class="social-field">
+                        <label>Email:</label>
+                        <input type="email" id="regEmail" class="login-input" placeholder="your.email@example.com" autocomplete="email">
+                    </div>
+                    <div class="social-field">
+                        <label>Password:</label>
+                        <input type="password" id="regPassword" class="login-input" placeholder="Enter your password..." autocomplete="new-password">
+                    </div>
+                    <button id="registerBtn" class="login-button">Create Account</button>
+                    <p class="login-error" id="registerError" style="display: none;"></p>
+                    <p class="login-success" id="registerSuccess" style="display: none;"></p>
+                    <p style="text-align: center; margin-top: 1rem; color: #c9b8a8;">
+                        Already have an account? <a href="#" data-page="login" class="link-text">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="loginPage" class="page-container login-page" style="display: none;">
+            <div class="login-container">
+                <div class="login-card">
+                    <h1 class="login-title">🔐 Member Login</h1>
+                    <p class="login-subtitle">Enter your credentials to access your profile</p>
+                    <div class="social-field">
+                        <label>Username:</label>
+                        <input type="text" id="loginUsername" class="login-input" placeholder="Enter your username..." autocomplete="username">
+                    </div>
+                    <div class="social-field">
+                        <label>Password:</label>
+                        <input type="password" id="loginPassword" class="login-input" placeholder="Enter your password..." autocomplete="current-password">
+                    </div>
+                    <button id="loginBtn" class="login-button">Login</button>
+                    <p class="login-error" id="loginError" style="display: none;"></p>
+                    <p style="text-align: center; margin-top: 1rem; color: #c9b8a8;">
+                        Don't have an account? <a href="#" data-page="register" class="link-text">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profilePage" class="page-container profile-page" style="display: none;">
+            <div class="profile-container">
+                <h1 class="profile-title">👤 My Profile</h1>
+                <div class="profile-card">
+                    <div class="profile-avatar-section">
+                        <img id="profileAvatarPreview" class="profile-avatar" src="images/RZN_LOGO.png" alt="Profile Avatar">
+                        <label class="avatar-upload-label">
+                            📷 Change Avatar
+                            <input type="file" id="avatarUpload" accept="image/*" class="avatar-upload-input">
+                        </label>
+                    </div>
+                    <div class="profile-info">
+                        <div class="info-field">
+                            <label>Member Name:</label>
+                            <p id="profileName"></p>
+                        </div>
+                        <div class="info-field" id="profileRoleField" style="display: none;">
+                            <label>Role:</label>
+                            <p id="profileRole" style="color: #ffd700; font-size: 1.1rem;"></p>
+                        </div>
+                        <div class="social-customization">
+                            <h3>Social Media Links</h3>
+                            <div class="social-field">
+                                <label>Facebook URL:</label>
+                                <input type="url" id="facebookInput" class="social-input" placeholder="https://facebook.com/...">
+                            </div>
+                            <div class="social-field">
+                                <label>YouTube URL:</label>
+                                <input type="url" id="youtubeInput" class="social-input" placeholder="https://youtube.com/...">
+                            </div>
+                            <div class="social-field">
+                                <label>TikTok URL:</label>
+                                <input type="url" id="tiktokInput" class="social-input" placeholder="https://tiktok.com/@...">
+                            </div>
+                        </div>
+                        <div class="profile-buttons">
+                            <button id="saveProfileBtn" class="save-btn">💾 Save Profile</button>
+                        </div>
+                        <p class="profile-message" id="profileMessage" style="display: none;"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Panel Page -->
+        <div id="adminPage" class="page-container members-page" style="display: none;">
+            <div class="members-content">
+                <h1 class="members-title">⚙️ Admin Panel</h1>
+                <p class="members-subtitle" id="adminSubtitle">Manage member applications</p>
+
+                <!-- Pending Applications -->
+                <div class="admin-section">
+                    <h2 class="section-title">📋 Pending Applications</h2>
+                    <div id="pendingContainer" class="pending-grid"></div>
+                    <div id="noPending" class="no-results" style="display: none;">
+                        <p>✅ No pending applications</p>
+                    </div>
+                </div>
+
+                <!-- All Members (Leader Only) -->
+                <div class="admin-section" id="allMembersSection" style="display: none;">
+                    <h2 class="section-title">👥 All Members</h2>
+                    <div id="allMembersContainer" class="pending-grid"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p class="footer-title">© 2025 RZN - Risen Organization</p>
+            <p class="footer-text">All rights reserved</p>
+            <p class="footer-motto">
+                <img src="images/RZN_LOGO.png" alt="RZN Logo" class="footer-logo"> Risen Together, Unstoppable Forever <img src="images/RZN_LOGO.png" alt="RZN Logo" class="footer-logo">
+            </p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

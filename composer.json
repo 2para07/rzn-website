@@ -1,0 +1,8 @@
+{
+  "name": "rzn/website",
+  "description": "RZN - Risen Organization Member Verification Website",
+  "require": {
+    "php": "^7.4|^8.0"
+  },
+  "require-dev": {}
+}
