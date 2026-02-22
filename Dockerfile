@@ -13,11 +13,8 @@ COPY . /var/www/html/
 # Enable mod_rewrite
 RUN a2enmod rewrite
 
-# Configure Apache to listen on dynamic port
-RUN echo "Listen ${PORT:-8080}" > /etc/apache2/ports.conf.d/railway.conf
-
-# Basic health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:${PORT:-8080}/ || exit 1
+# Configure Apache to listen on port
+RUN mkdir -p /etc/apache2/ports.conf.d/ && \
+    echo "Listen 8080" > /etc/apache2/ports.conf.d/railway.conf
 
 CMD ["apache2-foreground"]
