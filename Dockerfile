@@ -17,4 +17,8 @@ RUN a2enmod rewrite
 RUN mkdir -p /etc/apache2/ports.conf.d/ && \
     echo "Listen 8080" > /etc/apache2/ports.conf.d/railway.conf
 
-CMD ["apache2-foreground"]
+# Copy entrypoint script
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+CMD ["/entrypoint.sh"]
