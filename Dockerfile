@@ -4,10 +4,13 @@ FROM php:8.1-cli
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (minimal)
 RUN apt-get update && apt-get install -y \
-    mysql-client \
+    curl \
     && rm -rf /var/lib/apt/lists/*
+
+# Install PHP PDO MySQL extension
+RUN docker-php-ext-install pdo pdo_mysql
 
 # Copy application files
 COPY . /app
