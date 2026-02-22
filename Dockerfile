@@ -13,12 +13,9 @@ COPY . /var/www/html/
 # Enable mod_rewrite
 RUN a2enmod rewrite
 
-# Configure Apache to listen on port
-RUN mkdir -p /etc/apache2/ports.conf.d/ && \
-    echo "Listen 8080" > /etc/apache2/ports.conf.d/railway.conf
+# Configure Apache for Railway - set port 8080
+RUN echo "Listen 8080" > /etc/apache2/ports.conf && \
+    sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/g' /etc/apache2/sites-enabled/000-default.conf
 
-# Copy entrypoint script
-COPY docker-entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-CMD ["/entrypoint.sh"]
+# Use apache foreground
+CMD ["apache2-foreground"]
