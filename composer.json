@@ -2,7 +2,9 @@
   "name": "rzn/website",
   "description": "RZN - Risen Organization Member Verification Website",
   "require": {
-    "php": "^7.4|^8.0"
+    "php": "^7.4"
   },
-  "require-dev": {}
+  "scripts": {
+    "post-install-cmd": ["echo 'RZN Website installed'"]
+  }
 }
