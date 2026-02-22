@@ -1,21 +1,23 @@
-# Use official PHP image with Apache
+# PHP 8.1 Apache
 FROM php:8.1-apache
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Install PHP extensions
+# Install required PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Enable mod_rewrite for Apache
+# Copy application files to Apache root
+COPY . /var/www/html/
+
+# Enable mod_rewrite
 RUN a2enmod rewrite
 
-# Copy application files
-COPY . /var/www/html
+# Configure Apache to listen on dynamic port
+RUN echo "Listen ${PORT:-8080}" > /etc/apache2/ports.conf.d/railway.conf
 
-# Set Apache to listen on PORT environment variable
-ENV APACHE_RUN_PORT 8080
-RUN sed -i 's/Listen 80/Listen ${APACHE_RUN_PORT:-8080}/g' /etc/apache2/ports.conf
+# Basic health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:${PORT:-8080}/ || exit 1
 
-# Start Apache
 CMD ["apache2-foreground"]
